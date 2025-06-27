@@ -4,7 +4,7 @@
 # Solve a Sudoku puzzle
 # by Martin Schaap
 #
-from input import print_sudoku, sudoku as original_sudoku
+from input import print_sudoku
 from display import sudoku_to_html
 
 def process_sudoku( sudoku, can_be ):
@@ -15,8 +15,9 @@ def process_sudoku( sudoku, can_be ):
     print("Sudoku after solving:")
     print_sudoku(sudoku)
     sudoku_to_html(sudoku, original)
-    print("The solution has been opened in your browser. Please do not close the browser tab to keep it visible.")
-    input("Press Enter to exit...")
+    # Ensure the browser opens in both debug and normal run modes
+    import time
+    time.sleep(2)  # Give the browser time to open before the script exits
     return
 
 def is_valid(sudoku, block_row, block_col, cell_row, cell_col, num):

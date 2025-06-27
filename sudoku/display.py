@@ -1,6 +1,6 @@
 import copy
-import webbrowser
 import os
+import subprocess
 
 def sudoku_to_html(sudoku, original=None, filename="sudoku_solution.html"):
     if original is None:
@@ -37,11 +37,12 @@ def sudoku_to_html(sudoku, original=None, filename="sudoku_solution.html"):
             value = sudoku[block_row][block_col][cell_row][cell_col]
             orig_value = original[block_row][block_col][cell_row][cell_col]
             classes = []
-            if col % 3 == 2 and col != 8:
+            # Always add block-right to the last cell of each block (col % 3 == 2)
+            if col % 3 == 2:
                 classes.append("block-right")
             if col % 3 == 0:
                 classes.append("block-left")
-            if row % 3 == 2 and row != 8:
+            if row % 3 == 2:
                 classes.append("block-bottom")
             if row % 3 == 0:
                 classes.append("block-top")
@@ -57,4 +58,6 @@ def sudoku_to_html(sudoku, original=None, filename="sudoku_solution.html"):
     """
     with open(filename, "w", encoding="utf-8") as f:
         f.write(html)
-    webbrowser.get().open_new_tab('file://' + os.path.realpath(filename))
+    # Open in browser using subprocess (Windows)
+    filepath = os.path.realpath(filename)
+    subprocess.Popen(['start', '', filepath], shell=True)
