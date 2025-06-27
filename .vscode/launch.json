@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Python: solver.py",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/sudoku/solver.py",
             "console": "integratedTerminal"

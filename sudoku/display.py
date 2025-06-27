@@ -1,7 +1,10 @@
+import copy
 import webbrowser
 import os
 
-def sudoku_to_html(sudoku, filename="sudoku_solution.html"):
+def sudoku_to_html(sudoku, original=None, filename="sudoku_solution.html"):
+    if original is None:
+        original = copy.deepcopy(sudoku)
     html = """
     <html>
     <head>
@@ -13,6 +16,7 @@ def sudoku_to_html(sudoku, filename="sudoku_solution.html"):
                 text-align: center; font-size: 24px;
                 border: 1px solid #888;
             }
+            td.solved { color: red; }
             /* Thicker borders for 3x3 blocks */
             td.block-right { border-right: 3px solid #000; }
             td.block-bottom { border-bottom: 3px solid #000; }
@@ -31,6 +35,7 @@ def sudoku_to_html(sudoku, filename="sudoku_solution.html"):
             block_col = col // 3
             cell_col = col % 3
             value = sudoku[block_row][block_col][cell_row][cell_col]
+            orig_value = original[block_row][block_col][cell_row][cell_col]
             classes = []
             if col % 3 == 2 and col != 8:
                 classes.append("block-right")
@@ -40,6 +45,8 @@ def sudoku_to_html(sudoku, filename="sudoku_solution.html"):
                 classes.append("block-bottom")
             if row % 3 == 0:
                 classes.append("block-top")
+            if orig_value == ".":
+                classes.append("solved")
             class_attr = f' class="{' '.join(classes)}"' if classes else ''
             html += f"<td{class_attr}>{value}</td>"
         html += "</tr>\n"
@@ -50,4 +57,4 @@ def sudoku_to_html(sudoku, filename="sudoku_solution.html"):
     """
     with open(filename, "w", encoding="utf-8") as f:
         f.write(html)
-    webbrowser.open('file://' + os.path.realpath(filename))
+    webbrowser.get().open_new_tab('file://' + os.path.realpath(filename))

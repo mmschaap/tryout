@@ -4,17 +4,19 @@
 # Solve a Sudoku puzzle
 # by Martin Schaap
 #
-from input import print_sudoku
+from input import print_sudoku, sudoku as original_sudoku
 from display import sudoku_to_html
 
 def process_sudoku( sudoku, can_be ):
+    import copy
+    original = copy.deepcopy(sudoku)
     solve_sudoku(sudoku)
- 
     # Display the sudoku before solving
     print("Sudoku after solving:")
     print_sudoku(sudoku)
-    # Display solved sudoku in browser
-    sudoku_to_html(sudoku)
+    sudoku_to_html(sudoku, original)
+    print("The solution has been opened in your browser. Please do not close the browser tab to keep it visible.")
+    input("Press Enter to exit...")
     return
 
 def is_valid(sudoku, block_row, block_col, cell_row, cell_col, num):
