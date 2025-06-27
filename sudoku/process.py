@@ -5,6 +5,7 @@
 # by Martin Schaap
 #
 from input import print_sudoku
+from display import sudoku_to_html
 
 def process_sudoku( sudoku, can_be ):
     solve_sudoku(sudoku)
@@ -12,6 +13,8 @@ def process_sudoku( sudoku, can_be ):
     # Display the sudoku before solving
     print("Sudoku after solving:")
     print_sudoku(sudoku)
+    # Display solved sudoku in browser
+    sudoku_to_html(sudoku)
     return
 
 def is_valid(sudoku, block_row, block_col, cell_row, cell_col, num):
