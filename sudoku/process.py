@@ -11,13 +11,11 @@ def process_sudoku( sudoku, can_be ):
     import copy
     original = copy.deepcopy(sudoku)
     solve_sudoku(sudoku)
-    # Display the sudoku before solving
     print("Sudoku after solving:")
     print_sudoku(sudoku)
-    sudoku_to_html(sudoku, original)
-    # Ensure the browser opens in both debug and normal run modes
+    sudoku_to_html(sudoku, original, filename="sudoku_comparison.html", solved=True, show_both=True)
     import time
-    time.sleep(2)  # Give the browser time to open before the script exits
+    time.sleep(2)
     return
 
 def is_valid(sudoku, block_row, block_col, cell_row, cell_col, num):
