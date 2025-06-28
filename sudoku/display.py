@@ -32,6 +32,9 @@ def sudoku_to_html(sudoku, original=None, filename="sudoku_solution.html", solve
             table_html += "</tr>\n"
         table_html += "</table>"
         return table_html
+    # Ensure the HTML file is created in the sudoku folder
+    sudoku_dir = os.path.dirname(os.path.abspath(__file__))
+    html_path = os.path.join(sudoku_dir, filename)
     html = """
     <html>
     <head>
@@ -66,7 +69,6 @@ def sudoku_to_html(sudoku, original=None, filename="sudoku_solution.html", solve
     </body>
     </html>
     """
-    with open(filename, "w", encoding="utf-8") as f:
+    with open(html_path, "w", encoding="utf-8") as f:
         f.write(html)
-    filepath = os.path.realpath(filename)
-    subprocess.Popen(['start', '', filepath], shell=True)
+    subprocess.Popen(['start', '', html_path], shell=True)
